@@ -2,7 +2,7 @@ import fs from 'fs/promises'
 import path from 'path'
 import { useEffect, useState } from 'react'
 import Lightbox from '../../components/Lightbox'
-import { PhotographIcon, ArrowDownTrayIcon } from '@heroicons/react/24/outline'
+import { PhotoIcon, ArrowDownTrayIcon } from '@heroicons/react/24/outline'
 
 function GalleryCard({ photo, onView, onDownload }) {
   const [loading, setLoading] = useState(false)
