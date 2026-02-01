@@ -8,9 +8,9 @@
     "ownerEmail": "client@creativegraphics.test",
     "createdAt": "2026-02-01T00:10:00.000Z",
     "variants": {
-      "thumbUrl": "https://via.placeholder.com/400x300?text=Sunset+1",
+      "thumbUrl": "/demo/sunset-1.svg",
       "webpKey": "demo:Sunset-1",
-      "placeholder": "https://via.placeholder.com/20x15?text=%20"
+      "placeholder": "/demo/sunset-1.svg"
     }
   },
   {
@@ -22,9 +22,9 @@
     "ownerEmail": "client@creativegraphics.test",
     "createdAt": "2026-02-01T00:12:00.000Z",
     "variants": {
-      "thumbUrl": "https://via.placeholder.com/400x300?text=Studio+2",
+      "thumbUrl": "/demo/studio-2.svg",
       "webpKey": "demo:Studio-2",
-      "placeholder": "https://via.placeholder.com/20x15?text=%20"
+      "placeholder": "/demo/studio-2.svg"
     }
   },
   {
@@ -36,9 +36,9 @@
     "ownerEmail": "client@creativegraphics.test",
     "createdAt": "2026-02-01T00:14:00.000Z",
     "variants": {
-      "thumbUrl": "https://via.placeholder.com/400x300?text=Portrait+3",
+      "thumbUrl": "/demo/portrait-3.svg",
       "webpKey": "demo:Portrait-3",
-      "placeholder": "https://via.placeholder.com/20x15?text=%20"
+      "placeholder": "/demo/portrait-3.svg"
     }
   },
   {
@@ -50,9 +50,9 @@
     "ownerEmail": "client@creativegraphics.test",
     "createdAt": "2026-02-01T00:16:00.000Z",
     "variants": {
-      "thumbUrl": "https://via.placeholder.com/400x300?text=Couple+4",
+      "thumbUrl": "/demo/couple-4.svg",
       "webpKey": "demo:Couple-4",
-      "placeholder": "https://via.placeholder.com/20x15?text=%20"
+      "placeholder": "/demo/couple-4.svg"
     }
   },
   {
@@ -64,9 +64,9 @@
     "ownerEmail": "client@creativegraphics.test",
     "createdAt": "2026-02-01T00:18:00.000Z",
     "variants": {
-      "thumbUrl": "https://via.placeholder.com/400x300?text=Product+5",
+      "thumbUrl": "/demo/product-5.svg",
       "webpKey": "demo:Product-5",
-      "placeholder": "https://via.placeholder.com/20x15?text=%20"
+      "placeholder": "/demo/product-5.svg"
     }
   }
 ]

@@ -9,7 +9,8 @@ module.exports = async function handler(req, res) {
     // Demo mode: keys starting with "demo:" are returned as public URLs for preview without R2
     if (key.toString().startsWith('demo:')) {
       const name = key.toString().slice('demo:'.length)
-      const publicUrl = `https://via.placeholder.com/1200?text=${encodeURIComponent(name)}`
+      const base = process.env.NEXT_PUBLIC_APP_URL || process.env.APP_URL || ''
+      const publicUrl = base ? `${base}/demo/${encodeURIComponent(name.toLowerCase())}.svg` : `/demo/${encodeURIComponent(name.toLowerCase())}.svg`
       return res.status(200).json({ ok: true, url: publicUrl })
     }
 
