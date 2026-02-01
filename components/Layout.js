@@ -1,7 +1,10 @@
 import Head from 'next/head'
 import Link from 'next/link'
+import { useSession, signIn, signOut } from 'next-auth/react'
 
 export default function Layout({ children }) {
+  const { data: session } = useSession()
+
   return (
     <div>
       <Head>
@@ -24,6 +27,21 @@ export default function Layout({ children }) {
 
           <nav className="flex items-center gap-4">
             <Link href="/admin" className="text-sm text-gray-700 hover:text-primary">Admin</Link>
+            {!session && (
+              <button onClick={() => signIn('customer')} className="text-sm text-gray-700 hover:text-primary">Customer Login</button>
+            )}
+            {session && session.user?.role === 'customer' && (
+              <div className="flex items-center gap-3">
+                <Link href={`/gallery/${encodeURIComponent(session.user.email)}`} className="text-sm text-gray-700 hover:text-primary">My Gallery</Link>
+                <button onClick={() => signOut({ callbackUrl: '/' })} className="text-sm text-gray-700 hover:text-primary">Sign out</button>
+              </div>
+            )}
+            {session && session.user?.role === 'admin' && (
+              <div className="flex items-center gap-3">
+                <div className="text-sm text-gray-700">Signed in as <strong>{session.user.email}</strong></div>
+                <button onClick={() => signOut({ callbackUrl: '/' })} className="text-sm text-gray-700 hover:text-primary">Sign out</button>
+              </div>
+            )}
           </nav>
         </div>
       </header>

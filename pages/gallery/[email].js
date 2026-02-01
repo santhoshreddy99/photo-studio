@@ -38,10 +38,14 @@ export default function Gallery({ initialPhotos, email }) {
   const [photos, setPhotos] = useState(initialPhotos || [])
   const [lightboxOpen, setLightboxOpen] = useState(false)
   const [lightboxSrc, setLightboxSrc] = useState('')
+  const [selectedFolder, setSelectedFolder] = useState(null)
 
   useEffect(() => {
     setPhotos(initialPhotos)
   }, [initialPhotos])
+
+  const folders = Array.from(new Set((photos || []).map((p) => p.folder || 'Unsorted')))
+
 
   // Poll for updated processed variants (if a photo has not been processed yet)
   useEffect(() => {
@@ -106,20 +110,50 @@ export default function Gallery({ initialPhotos, email }) {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        {photos.map((p, idx) => (
-          <GalleryCard key={p.id} photo={p} onView={() => openAtIndex(idx)} onDownload={async () => {
-            try { const url = await getUrl(p.key); window.open(url, '_blank') } catch { alert('Failed to get download url') }
-          }} onToggleFav={(photo) => {
-            const fav = JSON.parse(localStorage.getItem('cg:favorites') || '[]')
-            const exists = fav.find((f) => f.id === photo.id)
-            const next = exists ? fav.filter((f) => f.id !== photo.id) : [...fav, { id: photo.id, filename: photo.filename, ownerEmail: photo.ownerEmail, key: photo.key, thumbUrl: photo.variants?.thumbUrl }]
-            localStorage.setItem('cg:favorites', JSON.stringify(next))
-          }} />
-        ))}
-      </div>
+      {/* Folder view */}
+      {!selectedFolder ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          {folders.map((f) => {
+            const count = photos.filter((p) => (p.folder || 'Unsorted') === f).length
+            const thumb = photos.find((p) => (p.folder || 'Unsorted') === f)?.variants?.thumbUrl
+            return (
+              <div key={f} className="bg-white rounded-lg overflow-hidden shadow cursor-pointer" onClick={() => setSelectedFolder(f)}>
+                <div className="h-48 bg-gray-100">
+                  <img src={thumb || '/demo/sunset-1.svg'} className="w-full h-full object-cover" />
+                </div>
+                <div className="p-4">
+                  <div className="font-semibold">{f}</div>
+                  <div className="text-sm text-gray-600">{count} photos</div>
+                  <div className="mt-3"><button className="text-sm text-primary">Open folder →</button></div>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      ) : (
+        <div>
+          <div className="mb-4 flex items-center gap-3">
+            <button onClick={() => setSelectedFolder(null)} className="px-3 py-2 border rounded">← Back to folders</button>
+            <div className="font-semibold">{selectedFolder}</div>
+            <div className="text-sm text-gray-500">{photos.filter((p) => (p.folder || 'Unsorted') === selectedFolder).length} photos</div>
+          </div>
 
-      <Lightbox open={lightboxOpen} src={lightboxSrc} alt="photo" onClose={() => setLightboxOpen(false)} onPrev={prev} onNext={next} />
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            {photos.filter((p) => (p.folder || 'Unsorted') === selectedFolder).map((p, idx) => (
+              <GalleryCard key={p.id} photo={p} onView={() => openAtIndex(idx)} onDownload={async () => {
+                try { const url = await getUrl(p.key); window.open(url, '_blank') } catch { alert('Failed to get download url') }
+              }} onToggleFav={(photo) => {
+                const fav = JSON.parse(localStorage.getItem('cg:favorites') || '[]')
+                const exists = fav.find((f) => f.id === photo.id)
+                const next = exists ? fav.filter((f) => f.id !== photo.id) : [...fav, { id: photo.id, filename: photo.filename, ownerEmail: photo.ownerEmail, key: photo.key, thumbUrl: photo.variants?.thumbUrl }]
+                localStorage.setItem('cg:favorites', JSON.stringify(next))
+              }} />
+            ))}
+          </div>
+        </div>
+      )}
+
+      <Lightbox open={lightboxOpen} src={lightboxSrc} alt="photo" onClose={() => { setLightboxOpen(false); }} onPrev={prev} onNext={next} photoId={photos[currentIndex]?.id} />
     </div>
   )
 }

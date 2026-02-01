@@ -3,6 +3,7 @@
     "id": "p1",
     "key": "demo:Sunset-1",
     "filename": "Sunset 1.jpg",
+    "folder": "Highlights",
     "contentType": "image/jpeg",
     "size": 124531,
     "ownerEmail": "client@creativegraphics.test",
@@ -13,10 +14,12 @@
       "placeholder": "/demo/sunset-1.svg"
     }
   },
+
   {
     "id": "p2",
     "key": "demo:Studio-2",
     "filename": "Studio 2.jpg",
+    "folder": "Getting Ready",
     "contentType": "image/jpeg",
     "size": 98542,
     "ownerEmail": "client@creativegraphics.test",
@@ -27,10 +30,12 @@
       "placeholder": "/demo/studio-2.svg"
     }
   },
+
   {
     "id": "p3",
     "key": "demo:Portrait-3",
     "filename": "Portrait 3.jpg",
+    "folder": "Portraits",
     "contentType": "image/jpeg",
     "size": 143256,
     "ownerEmail": "client@creativegraphics.test",
@@ -41,10 +46,12 @@
       "placeholder": "/demo/portrait-3.svg"
     }
   },
+
   {
     "id": "p4",
     "key": "demo:Couple-4",
     "filename": "Couple 4.jpg",
+    "folder": "Ceremony",
     "contentType": "image/jpeg",
     "size": 153421,
     "ownerEmail": "client@creativegraphics.test",
@@ -55,10 +62,12 @@
       "placeholder": "/demo/couple-4.svg"
     }
   },
+
   {
     "id": "p5",
     "key": "demo:Product-5",
     "filename": "Product 5.jpg",
+    "folder": "Details",
     "contentType": "image/jpeg",
     "size": 110234,
     "ownerEmail": "client@creativegraphics.test",
