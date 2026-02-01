@@ -5,6 +5,15 @@ export default async function handler(req, res) {
   const email = req.query.email
   if (!email) return res.status(400).json({ error: 'Missing email' })
 
+  // Require session same as gallery page: admin may view any, customer only their own
+  const { getServerSession } = require('next-auth/next')
+  const { authOptions } = require('./auth/[...nextauth]')
+  const session = await getServerSession(req, res, authOptions)
+  if (!session) return res.status(401).json({ error: 'Unauthorized' })
+  if (session.user.role === 'customer' && session.user.email.toLowerCase() !== String(email).toLowerCase()) {
+    return res.status(403).json({ error: 'Forbidden' })
+  }
+
   const PHOTOS_FILE = path.join(process.cwd(), 'data', 'photos.json')
   try {
     const content = await fs.readFile(PHOTOS_FILE, 'utf8')

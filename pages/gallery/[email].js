@@ -110,6 +110,18 @@ export default function Gallery({ initialPhotos, email }) {
 
 export async function getServerSideProps(context) {
   const email = context.params.email
+
+  // Require a logged-in session: admin may view any gallery; customer may only view their own
+  const { getServerSession } = require('next-auth/next')
+  const { authOptions } = require('../api/auth/[...nextauth]')
+  const session = await getServerSession(context.req, context.res, authOptions)
+  if (!session) {
+    return { redirect: { destination: `/login?next=/gallery/${encodeURIComponent(email)}`, permanent: false } }
+  }
+  if (session.user.role === 'customer' && session.user.email.toLowerCase() !== String(email).toLowerCase()) {
+    return { redirect: { destination: '/login', permanent: false } }
+  }
+
   const PHOTOS_FILE = path.join(process.cwd(), 'data', 'photos.json')
   try {
     const content = await fs.readFile(PHOTOS_FILE, 'utf8')
