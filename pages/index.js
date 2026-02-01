@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { PhotoIcon, ArrowDownTrayIcon, CloudArrowUpIcon } from '@heroicons/react/24/outline'
+import HeroVideo from '../components/HeroVideo'
 
 export default function Home() {
   return (
@@ -42,7 +43,13 @@ export default function Home() {
         </div>
 
         <div className="rounded-lg overflow-hidden shadow">
-          <img src="/demo/sunset-1.svg" alt="Hero demo" className="w-full h-72 object-cover" />
+          <HeroVideo src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" poster="/demo/sunset-1.svg">
+            <div className="text-white">
+              <div className="text-sm font-medium">Creative Graphics</div>
+              <h2 className="text-2xl font-bold">Wedding photography that tells your story</h2>
+              <p className="mt-2 text-sm">Cinematic highlight reels and thoughtfully curated galleries for your clients.</p>
+            </div>
+          </HeroVideo>
         </div>
       </div>
 
