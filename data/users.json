@@ -1,1 +1,9 @@
-[]
+[
+  {
+    "id": "u1",
+    "email": "client@creativegraphics.test",
+    "name": "Client Demo",
+    "createdAt": "2026-02-01T00:00:00.000Z",
+    "note": "Demo customer for preview. Passwords are not checked for gallery preview — visit /gallery/[email] to see the gallery."
+  }
+]

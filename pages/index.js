@@ -7,7 +7,10 @@ export default function Home() {
         <div>
           <h1 className="text-3xl font-bold mb-4">Professional photo galleries for your customers</h1>
           <p className="text-gray-600 mb-6">Upload sessions, assign galleries, and let customers view and download full-resolution photos securely.</p>
-          <Link href="/admin" className="inline-block bg-primary text-white px-4 py-2 rounded-md">Go to Admin</Link>
+          <div className="flex gap-3">
+            <Link href="/admin" className="inline-block bg-primary text-white px-4 py-2 rounded-md">Go to Admin</Link>
+            <Link href="/gallery/client@creativegraphics.test" className="inline-block border border-gray-200 px-4 py-2 rounded-md">Preview sample gallery</Link>
+          </div>
         </div>
         <div className="text-center">
           <img src="https://via.placeholder.com/520x320?text=Photo+Studio" alt="Photo studio" className="rounded-lg shadow" />
