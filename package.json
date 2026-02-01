@@ -1,0 +1,29 @@
+{
+  "name": "photo-studio",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "postinstall": "npx tailwindcss -i ./styles/globals.css -o ./styles/tailwind.css --minify || true",
+    "build:css": "npx tailwindcss -i ./styles/globals.css -o ./styles/tailwind.css --minify"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.400.0",
+    "@aws-sdk/lib-storage": "^3.400.0",
+    "@aws-sdk/s3-request-presigner": "^3.400.0",
+    "@heroicons/react": "^2.2.0",
+    "@sendgrid/mail": "latest",
+    "next": "latest",
+    "next-auth": "^4.22.1",
+    "react": "latest",
+    "react-dom": "latest",
+    "sharp": "^0.32.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.24",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.19"
+  }
+}

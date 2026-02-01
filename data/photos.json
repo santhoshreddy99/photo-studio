@@ -1,0 +1,15 @@
+[
+  {
+    "id": "demo1",
+    "key": "demo:sample-photo",
+    "filename": "sample-photo.jpg",
+    "contentType": "image/jpeg",
+    "size": 12345,
+    "ownerEmail": "customer@example.com",
+    "createdAt": "2026-02-01T00:00:00.000Z",
+    "variants": {
+      "thumbUrl": "https://via.placeholder.com/400?text=Sample+Photo",
+      "webpKey": null
+    }
+  }
+]
