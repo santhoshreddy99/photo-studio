@@ -40,13 +40,12 @@ export default async function handler(req, res) {
     photos.push(photo)
     await fs.writeFile(PHOTOS_FILE, JSON.stringify(photos, null, 2))
 
-    // Trigger background processing (thumbnail, webp) synchronously here for demo
+    // Enqueue processing job to run asynchronously (worker will pick up and update the photo record)
     try {
-      const variants = await processPhoto(photo)
-      photo.variants = variants
-      await fs.writeFile(PHOTOS_FILE, JSON.stringify(photos, null, 2))
+      const { addProcessJob } = require('../../../lib/queue')
+      await addProcessJob(photo)
     } catch (err) {
-      console.error('processing failed', err)
+      console.error('enqueue failed', err)
     }
 
     return res.status(201).json({ ok: true, photo })

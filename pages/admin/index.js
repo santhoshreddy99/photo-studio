@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useSession, signOut } from 'next-auth/react'
+import { useToast } from '../../components/ToastContext'
 
 function generateTempPassword(length = 12) {
   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+~'
@@ -16,7 +17,7 @@ export default function AdminPage() {
   const [tempPassword, setTempPassword] = useState('')
   const [sendEmail, setSendEmail] = useState(true)
   const [loading, setLoading] = useState(false)
-  const [message, setMessage] = useState(null)
+  const toast = useToast()
 
   useEffect(() => {
     if (status === 'unauthenticated') {
@@ -27,27 +28,23 @@ export default function AdminPage() {
   async function handleSubmit(e) {
     e.preventDefault()
     setLoading(true)
-    setMessage(null)
 
     const body = { email, name, tempPassword: tempPassword || undefined, sendEmail }
 
     try {
       const res = await fetch('/api/admin/create-user', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          // Use server-side admin or NextAuth session for auth; here we call with session token
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body)
       })
       const data = await res.json()
       if (!res.ok) throw new Error(data?.error || 'Request failed')
-      setMessage({ type: 'success', text: `User created: ${data.user.email}` })
+      toast.add(`User created: ${data.user.email}`)
       setEmail('')
       setName('')
       setTempPassword('')
     } catch (err) {
-      setMessage({ type: 'error', text: err.message })
+      toast.add(`Failed to create user: ${err.message}`)
     } finally {
       setLoading(false)
     }
@@ -109,12 +106,12 @@ export default function AdminPage() {
         <hr />
 
         <h2>Bulk upload photos</h2>
-        <p style={{ color: '#555' }}>Select files to upload and they will be uploaded directly to Cloudflare R2 using presigned URLs.</p>
-        <input type="file" multiple onChange={async (e) => {
+        <p className="text-sm text-gray-600">Select files to upload and they will be uploaded directly to Cloudflare R2 using presigned URLs.</p>
+        <input type="file" multiple className="mb-4" onChange={async (e) => {
           const files = Array.from(e.target.files || [])
           for (const file of files) {
             const f = file
-            setMessage({ type: 'info', text: `Uploading ${f.name}...` })
+            const progressId = toast.add(`Uploading ${f.name}...`, { sticky: true, duration: 60000 })
             try {
               // get presigned url
               const pres = await fetch('/api/upload/presign', {
@@ -132,7 +129,8 @@ export default function AdminPage() {
                 xhr.setRequestHeader('Content-Type', f.type)
                 xhr.upload.onprogress = (ev) => {
                   if (ev.lengthComputable) {
-                    setMessage({ type: 'info', text: `Uploading ${f.name}: ${Math.round((ev.loaded / ev.total) * 100)}%` })
+                    const pct = Math.round((ev.loaded / ev.total) * 100)
+                    toast.update(progressId, `Uploading ${f.name}: ${pct}%`)
                   }
                 }
                 xhr.onload = () => {
@@ -151,9 +149,11 @@ export default function AdminPage() {
               })
               const doneData = await done.json()
               if (!done.ok) throw new Error(doneData?.error || 'Failed to complete upload')
-              setMessage({ type: 'success', text: `Uploaded ${f.name}` })
+              toast.update(progressId, `Uploaded ${f.name}`)
+              setTimeout(() => toast.remove(progressId), 2500)
             } catch (err) {
-              setMessage({ type: 'error', text: `Failed to upload ${file.name}: ${err.message}` })
+              toast.update(progressId, `Failed to upload ${file.name}: ${err.message}`)
+              setTimeout(() => toast.remove(progressId), 5000)
             }
           }
         }} />

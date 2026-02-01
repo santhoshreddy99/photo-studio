@@ -5,7 +5,7 @@ export default function Layout({ children }) {
   return (
     <div>
       <Head>
-        <title>Photo Studio</title>
+        <title>Creative Graphics</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
@@ -15,9 +15,9 @@ export default function Layout({ children }) {
       <header className="bg-white shadow">
         <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-md bg-primary flex items-center justify-center text-white font-bold">PS</div>
+            <div className="w-10 h-10 rounded-md bg-primary flex items-center justify-center text-white font-bold">CG</div>
             <div>
-              <div className="text-lg font-semibold">Photo Studio</div>
+              <div className="text-lg font-semibold">Creative Graphics</div>
               <div className="text-sm text-gray-500">Client galleries & downloads</div>
             </div>
           </Link>
@@ -31,7 +31,7 @@ export default function Layout({ children }) {
       <main>{children}</main>
 
       <footer className="border-t mt-12 bg-white">
-        <div className="max-w-6xl mx-auto px-4 py-6 text-sm text-gray-500">© Photo Studio</div>
+        <div className="max-w-6xl mx-auto px-4 py-6 text-sm text-gray-500">© Creative Graphics</div>
       </footer>
     </div>
   )

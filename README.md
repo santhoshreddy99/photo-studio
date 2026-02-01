@@ -1,4 +1,6 @@
-# Photo Studio — SendGrid credential emails
+# Creative Graphics — SendGrid credential emails
+
+> Run the background worker: `npm run worker` (requires `REDIS_URL` set)
 
 This small scaffolding implements server-side credential email sending using SendGrid and a protected API route.
 
