@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useSession, signOut } from 'next-auth/react'
 import { useToast } from '../../components/ToastContext'
+import Link from 'next/link'
 
 function generateTempPassword(length = 12) {
   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+~'
@@ -70,6 +71,13 @@ export default function AdminPage() {
         This admin page allows the studio to create customer accounts and optionally send the
         credential email. You must be signed in as an admin to use this page.
       </p>
+
+      <div style={{ marginBottom: 24, padding: 16, backgroundColor: '#f3f4f6', borderRadius: 8 }}>
+        <h3 style={{ marginTop: 0 }}>Admin Tools</h3>
+        <Link href="/admin/folders" style={{ display: 'inline-block', marginTop: 8, padding: '8px 12px', backgroundColor: '#2563eb', color: 'white', borderRadius: 4, textDecoration: 'none', fontSize: 14 }}>
+          📁 Manage Folders & Photos
+        </Link>
+      </div>
 
       <form onSubmit={handleSubmit} style={{ display: 'grid', gap: 12 }}>
         <label>
